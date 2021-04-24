@@ -21,7 +21,9 @@ parser = ArgumentParser(
     """
 )
 
-# add arguments
+parser.add_argument("-c", "--create", action="store_true", help="")
+parser.add_argument("-p", "--path", type=str, help="")
+parser.add_argument("-a", "--alias", type=str, help="")
 
 args = parser.parse_args()
 alias = Alias(args)
