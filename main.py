@@ -1,4 +1,5 @@
 from os import chdir, path
+from json import loads, dumps
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
 
 class Alias:
@@ -6,11 +7,25 @@ class Alias:
     def __init__(self, args):
         self.args = args
     
-    def run(self):
+    def use_alias(self):
         pass
 
     def create_alias(self):
-        pass
+        # print(self.args)
+        path = self.args.path
+        alias = self.args.alias
+
+        # loads json content
+        with open("alias.json", "r") as file:
+            try:
+                aliases = loads(file.read())
+            except:
+                aliases = {}
+        
+        aliases[f"{alias}"] = f"{path}"
+
+        with open("alias.json", "w") as file:
+            file.write(dumps(aliases))
 
     def remove_alias(self):
         pass
