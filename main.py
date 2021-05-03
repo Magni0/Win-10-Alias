@@ -1,15 +1,20 @@
-from os import chdir, path, getcwd
+from os import path
 from sys import argv
 from json import loads, dumps
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
 
 class Alias:
 
+    """this class is responsible for alias management"""
+
     def __init__(self, args):
         self.args = args
     
     def use_alias(self):
-        alias = self.args.alias
+
+        """change cwd using an alias as an argument"""
+
+        # alias = self.args.chdir
 
         with open("alias.json", "r") as file:
             try:
@@ -18,12 +23,18 @@ class Alias:
                 raise Exception("No stored aliases")
         
         if alias in aliases:
-            chdir(aliases[alias])
-            print(getcwd())
+            pass
+            # chdir(aliases[alias])
+            # print(getcwd())
         else:
             raise Exception("invalid alias")
 
     def create_alias(self):
+
+        """creates a key:value pair that represents alias:path
+        stored in json
+        """
+
         # print(self.args)
         path = self.args.path
         alias = self.args.alias
@@ -43,6 +54,9 @@ class Alias:
         print(f"Created alias: {alias} for {path}")
 
     def remove_alias(self):
+
+        """removes a specified json key:value pair"""
+
         alias = self.args.alias
 
         with open("alias.json", "r") as file:
@@ -70,7 +84,8 @@ parser = ArgumentParser(
 parser.add_argument("-c", "--create", action="store_true", help="used to create a new alias (-p and -a flags must follow)")
 parser.add_argument("-p", "--path", type=str, help="argument is absolute path")
 parser.add_argument("-a", "--alias", type=str, help="argument is the name of alias")
-parser.add_argument("-r", "--remove", action="store_true", help="")
+parser.add_argument("-r", "--remove", action="store_true", help="used to remove alias (-a flag must follow)")
+# parser.add_argument("chdir", type=str, help="")
 
 args = parser.parse_args()
 alias = Alias(args)
