@@ -1,4 +1,4 @@
-from os import chdir
+from os import chdir, path
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
 
 class Alias:
@@ -15,9 +15,6 @@ class Alias:
     def remove_alias(self):
         pass
 
-    def use_alias(self):
-        pass
-
 parser = ArgumentParser(
     formatter_class=RawDescriptionHelpFormatter,
     description="""
@@ -25,6 +22,12 @@ parser = ArgumentParser(
     speeding up cmd navigation.
     """
 )
+
+# check if alias file exists if not creates file
+if path.isfile("alias.json"):
+    pass
+else:
+    with open("alias.json", "x"): pass
 
 parser.add_argument("-c", "--create", action="store_true", help="used to create a new alias (-p and -a flags must follow)")
 parser.add_argument("-p", "--path", type=str, help="argument is the absolute path that you wish to make a new alias")
